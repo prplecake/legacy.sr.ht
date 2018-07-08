@@ -24,6 +24,15 @@ class Upload(Base):
         self.created = datetime.now()
         self.hidden = False
 
+    def json(self):
+        return {
+            'hash': self.hash,
+            'shorthash': self.shorthash,
+            'path': self.path,
+            'original_name': self.original_name,
+            'created': self.created.strftime('%FT%T%Z'),
+        }
+
 class User(Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key = True)

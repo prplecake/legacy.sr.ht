@@ -58,6 +58,20 @@ def reset_key():
     db.commit()
     return { "key": user.apiKey }
 
+@api.route("/api/uploads")
+@json_output
+def uploads():
+    key = request.form.get('key') or request.headers.get('key')
+    if not key:
+        return { "error": "API key is required" }, 401
+    user = User.query.filter(User.apiKey == key).first()
+    if not user:
+        return { "error": "API key not recognized" }, 403
+    uploads = (Upload.query
+            .filter(Upload.user_id == user.id, Upload.hidden == False)
+            .order_by(Upload.created.desc()))
+    return [u.json() for u in uploads]
+
 @api.route("/api/upload", methods=["POST"])
 @json_output
 def upload():
