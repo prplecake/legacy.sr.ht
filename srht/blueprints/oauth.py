@@ -5,7 +5,7 @@ from srht.objects import *
 from srht.common import *
 from srht.config import _cfg
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import urllib
 import redis
 import os

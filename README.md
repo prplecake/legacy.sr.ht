@@ -103,10 +103,10 @@ You can become an admin like so:
     $ python
     >>> from srht.database import db
     >>> from srht.objects import User
-    >>> from datetime import datetime
+    >>> from datetime import datetime, timezone
     >>> u = User.query.filter(User.username == "your username").first()
     >>> u.approved = True # approve yourself
-    >>> u.approvalDate = datetime.now()
+    >>> u.approvalDate = datetime.now(timezone.utc)
     >>> u.admin = True # make yourself an admin
     >>> db.commit()
 

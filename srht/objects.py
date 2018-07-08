@@ -3,7 +3,7 @@ from sqlalchemy import ForeignKey, Table, UnicodeText, Text, text
 from sqlalchemy.orm import relationship, backref
 from .database import Base
 
-from datetime import datetime
+from datetime import datetime, timezone
 import bcrypt
 import os
 import hashlib
@@ -16,12 +16,12 @@ class Upload(Base):
     hash = Column(String, nullable=False)
     shorthash = Column(String, nullable=False)
     path = Column(String, nullable=False)
-    created = Column(DateTime)
+    created = Column(DateTime(timezone=True))
     original_name = Column(Unicode(512))
     hidden = Column(Boolean())
 
     def __init__(self):
-        self.created = datetime.now()
+        self.created = datetime.now(timezone.utc)
         self.hidden = False
 
     def json(self):
@@ -40,10 +40,10 @@ class User(Base):
     email = Column(String(256), nullable=False, index=True)
     admin = Column(Boolean())
     password = Column(String)
-    created = Column(DateTime)
-    approvalDate = Column(DateTime)
+    created = Column(DateTime(timezone=True))
+    approvalDate = Column(DateTime(timezone=True))
     passwordReset = Column(String(128))
-    passwordResetExpiry = Column(DateTime)
+    passwordResetExpiry = Column(DateTime(timezone=True))
     apiKey = Column(String(128))
     comments = Column(Unicode(512))
     approved = Column(Boolean())
@@ -63,7 +63,7 @@ class User(Base):
         self.admin = False
         self.approved = False
         self.rejected = False
-        self.created = datetime.now()
+        self.created = datetime.now(timezone.utc)
         self.generate_api_key()
         self.set_password(password)
 
@@ -84,7 +84,7 @@ class User(Base):
 class OAuthClient(Base):
     __tablename__ = 'oauth_clients'
     id = Column(Integer, primary_key=True)
-    created = Column(DateTime, nullable=False)
+    created = Column(DateTime(timezone=True), nullable=False)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship('User', backref=backref('clients'))
     name = Column(Unicode(256), nullable=False)
@@ -98,7 +98,7 @@ class OAuthClient(Base):
         return "<OAuthClient {} {} by {}>".format(self.id, self.name, self.user.username)
 
     def __init__(self, user, name, uri, redirect_uri):
-        self.created = datetime.now()
+        self.created = datetime.now(timezone.utc)
         self.user = user
         self.name = name
         self.uri = uri
@@ -111,12 +111,12 @@ class OAuthClient(Base):
 class OAuthToken(Base):
     __tablename__ = 'oauth_tokens'
     id = Column(Integer, primary_key=True)
-    created = Column(DateTime, nullable=False)
+    created = Column(DateTime(timezone=True), nullable=False)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship('User', backref=backref('tokens'))
     client_id = Column(Integer, ForeignKey('oauth_clients.id'))
     client = relationship('OAuthClient', backref=backref('tokens'))
-    last_used = Column(DateTime)
+    last_used = Column(DateTime(timezone=True))
     token = Column(String(32), nullable=False)
     scopes = Column(String(256))
 
@@ -124,7 +124,7 @@ class OAuthToken(Base):
         return "<OAuthToken {} {}>".format(self.id, self.token)
 
     def __init__(self, user, client):
-        self.created = datetime.now()
+        self.created = datetime.now(timezone.utc)
         self.user = user
         self.client = client
         salt = os.urandom(40)

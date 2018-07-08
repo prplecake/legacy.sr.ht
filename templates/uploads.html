@@ -18,7 +18,7 @@
         <tr>
             <td><a href="{{ file_link(upload.path) }}">{{ upload.path }}</a></td>
             <td>{{ upload.original_name }}</td>
-            <td>
+            <td title="{% if upload.created %}{{ upload.created.strftime("%FT%T%Z") }}{% endif %}">
                 {% if upload.created %}
                 {{ upload.created.strftime("%Y-%m-%d") }}
                 {% endif %}

@@ -6,7 +6,7 @@ from srht.common import *
 from srht.config import _cfg
 from srht.email import send_reset
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import binascii
 import os
 import zipfile
@@ -24,7 +24,7 @@ html = Blueprint('html', __name__, template_folder='../../templates')
 @html.route("/")
 def index():
     if current_user and current_user.approved:
-        new = datetime.now() - timedelta(hours=24) < current_user.approvalDate
+        new = datetime.now(timezone.utc) - timedelta(hours=24) < current_user.approvalDate
         total = Upload.query.count()
         st = os.statvfs("/")
         free_space = st.f_bavail * st.f_frsize
@@ -159,7 +159,7 @@ def forgot_password():
         if not user:
             return render_template("forgot.html", bad_email=True, email=email)
         user.passwordReset = binascii.b2a_hex(os.urandom(20)).decode("utf-8")
-        user.passwordResetExpiry = datetime.now() + timedelta(days=1)
+        user.passwordResetExpiry = datetime.now(timezone.utc) + timedelta(days=1)
         db.commit()
         send_reset(user)
         return render_template("forgot.html", success=True)
@@ -172,13 +172,13 @@ def reset_password(username, confirmation):
     if not user:
         redirect("/")
     if request.method == 'GET':
-        if user.passwordResetExpiry == None or user.passwordResetExpiry < datetime.now():
+        if user.passwordResetExpiry == None or user.passwordResetExpiry < datetime.now(timezone.utc):
             return render_template("reset.html", expired=True)
         if user.passwordReset != confirmation:
             redirect("/")
         return render_template("reset.html", username=username, confirmation=confirmation)
     else:
-        if user.passwordResetExpiry == None or user.passwordResetExpiry < datetime.now():
+        if user.passwordResetExpiry == None or user.passwordResetExpiry < datetime.now(timezone.utc):
             abort(401)
         if user.passwordReset != confirmation:
             abort(401)

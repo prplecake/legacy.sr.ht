@@ -6,7 +6,7 @@ from srht.common import *
 from srht.config import _cfg
 from srht.email import send_invite, send_rejection
 
-from datetime import datetime
+from datetime import datetime, timezone
 import hashlib
 import binascii
 import os
@@ -29,7 +29,7 @@ api = Blueprint('api', __name__, template_folder='../../templates')
 def approve(id):
     u = User.query.filter(User.id == id).first()
     u.approved = True
-    u.approvalDate = datetime.now()
+    u.approvalDate = datetime.now(timezone.utc)
     db.commit()
     send_invite(u)
     return { "success": True }
