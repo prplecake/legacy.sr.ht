@@ -2,8 +2,6 @@
 
 Private file hosting for you and your friends.
 
-![](https://sr.ht/9087.png)
-
 I run a private instance of sr.ht *at* [sr.ht](https://sr.ht). You can request
 an invite if you know me personally. Otherwise, here are the setup instructions
 to run it on your own infrastructure:
