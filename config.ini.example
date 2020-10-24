@@ -29,6 +29,10 @@ storage=/home/sircmpwn/sources/sr.ht/storage/
 owner=Your name
 owner_email=your@email.com
 
+# Whether to show the public index page to let users request an account,
+# or not. Set to 'yes' to show the public index page.
+show-public-index=no
+
 # SQL connection string
 connection-string=postgresql://postgres@localhost/sr.ht
 

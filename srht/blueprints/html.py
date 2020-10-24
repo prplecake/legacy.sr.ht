@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, abort, request, redirect, session, url_for, send_file, Response
+from flask import Blueprint, render_template, abort, request, redirect, session, url_for, send_file, Response, make_response
 from flask_login import current_user, login_user, logout_user
 from sqlalchemy import desc, or_, and_
 from srht.objects import *
@@ -35,7 +35,10 @@ def index():
         approvals = User.query.filter(User.approved == False).filter(User.rejected == False).count()
         return render_template("index-member.html", new=new, total=total, approved_users=approved_users, rejected_users=rejected_users, \
                 used_space=used_space, free_space=free_space, total_space=total_space, approvals=approvals)
-    return render_template("index.html")
+    if _cfg("show-public-index") == "yes":
+        return render_template("index.html")
+    else:
+        return make_response('', 204)
 
 @html.route("/register", methods=['POST'])
 def register():
