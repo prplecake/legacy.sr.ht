@@ -21,12 +21,14 @@ import hashlib
 encoding = locale.getdefaultlocale()[1]
 html = Blueprint('html', __name__, template_folder='../../templates')
 
+mount_point = find_mount_point(_cfg("storage"))
+
 @html.route("/")
 def index():
     if current_user and current_user.approved:
         new = datetime.now(timezone.utc) - timedelta(hours=24) < current_user.approvalDate
         total = Upload.query.count()
-        st = os.statvfs("/")
+        st = os.statvfs(mount_point)
         free_space = st.f_bavail * st.f_frsize
         total_space = st.f_blocks * st.f_frsize
         used_space = (st.f_blocks - st.f_bfree) * st.f_frsize

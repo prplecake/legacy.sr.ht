@@ -7,6 +7,7 @@ from srht.database import db, Base
 from srht.config import _cfg
 
 import json
+import os
 import urllib
 import requests
 import xml.etree.ElementTree as ET
@@ -102,3 +103,10 @@ def file_link(path):
 
 def disown_link(path):
     return _cfg("protocol") + "://"  + _cfg("domain") + "/disown?filename=" + path
+
+# https://stackoverflow.com/questions/4453602/how-to-find-the-mountpoint-a-file-resides-on/4453715#4453715
+def find_mount_point(path):
+    path = os.path.abspath(path)
+    while not os.path.ismount(path):
+        path = os.path.dirname(path)
+    return path
