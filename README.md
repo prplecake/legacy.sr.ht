@@ -2,7 +2,7 @@
 
 Private file hosting for you and your friends.
 
-I run a private instance of legacy.sr.ht *at* [drop.jrgnsn.net][0]. You
+I run a private instance of legacy.sr.ht at [drop.jrgnsn.net][0]. You
 can request an invite if you know me personally. Otherwise, here are the
 setup instructions to run it on your own infrastructure:
 
