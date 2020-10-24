@@ -6,6 +6,7 @@ environment=dev
 # Change this to the actual location of your site
 protocol=http
 domain=localhost:5000
+
 # Change this value to something random and secret
 secret-key=hello world
 
@@ -18,6 +19,7 @@ smtp-host=
 smtp-port=
 smtp-user=
 smtp-password=
+
 # Exceptions are emailed here
 error-to=
 error-from=
