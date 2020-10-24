@@ -38,7 +38,7 @@ def index():
     if _cfg("show-public-index") == "yes":
         return render_template("index.html")
     else:
-        return make_response('', 204)
+        return make_response('', 403)
 
 @html.route("/register", methods=['POST'])
 def register():
