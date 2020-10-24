@@ -1,17 +1,17 @@
 {% extends "layout.html" %}
 {% block body %} 
 <div class="text-center">
-    <h1>sr.ht services</h1>
+    <h1><a href="/">{{ domain }}</a> services</h1>
     <h4 class="text-muted">Extra services and resources for you</h4>
 </div>
 <hr />
 <div class="text-center">
     <h3>Third Party Integrations</h3>
-    <p>sr.ht offers OAuth to allow users to create new things for other members to use.</p>
+    <p>{{ domain }} offers OAuth to allow users to create new things for other members to use.</p>
     <p><a href="/oauth/tokens">Manage Client Authorizations</a> &mdash; <a href="/oauth/clients">Register and Manage Clients</a></p>
     <p>If you make something neat, <a href="mailto:{{owner_email}}">let me know</a> and I'll feature it here.</p>
     <h3>Bash script</h3>
-    <p>You can upload to sr.ht with our <a href="/script">bash script</a>.</p>
+    <p>You can upload to {{ site_name }} with our <a href="/script">bash script</a>.</p>
     <h3>More stuff?</h3>
     <p><a href="mailto:{{owner_email}}">Get in touch</a> if you have any more ideas worth hosting here.</p>
 </div>
