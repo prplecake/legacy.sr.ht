@@ -1,4 +1,4 @@
-# sr.ht
+# legacy.sr.ht
 
 Private file hosting for you and your friends.
 
