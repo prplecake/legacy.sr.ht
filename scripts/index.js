@@ -13,8 +13,8 @@ document.querySelector(".target").addEventListener("click", function(e) {
 });
 
 browse.addEventListener("change", function(e) {
-    for (var i = 0; i < browse.files.length; i++) {
-        var f = browse.files[i];
+    for (let file of browse.files) {
+        var f = file;
         var progress = addRow(f);
         uploadFile(f, progress);
     }
@@ -28,8 +28,8 @@ document.getElementById("reset-key").addEventListener("click", function(e) {
         e.target.removeAttribute("disabled");
         var key = JSON.parse(xhr.responseText).key;
         var keys = document.querySelectorAll(".apikey");
-        for (var i = 0; i < keys.length; i++) {
-            keys[i].textContent = key;
+        for (let k of keys) {
+            k.textContent = key;
         }
         document.getElementById("syntaxKey").innerHTML =
             "curl \\\n    -F key=" + key + " \\\n    -F file=@example.png \\\n    " + window.root + "/api/upload";
@@ -69,8 +69,9 @@ function dragNOP(e) {
 
 function handleDragDrop(e) {
     dragNOP(e);
-    for (var i = 0; i < e.dataTransfer.files.length; i++) {
-        var file = e.dataTransfer.files[i];
+    for (let f of e.dataTransfer.files) {
+        var file = f;
+        console.log(file);
         var progress = addRow(file);
         uploadFile(file, progress);
     }

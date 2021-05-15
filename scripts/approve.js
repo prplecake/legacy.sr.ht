@@ -4,8 +4,8 @@ function remove(target) {
 }
 
 var approves = document.querySelectorAll(".approve");
-for (var i = 0; i < approves.length; i++) {
-    approves[i].addEventListener("click", function(e) {
+for (let approve of approves) {
+    approve.addEventListener("click", function(e) {
         e.preventDefault();
         var id = e.target.dataset.user;
         var xhr = new XMLHttpRequest();
@@ -16,8 +16,8 @@ for (var i = 0; i < approves.length; i++) {
 }
 
 var rejects = document.querySelectorAll(".reject");
-for (var i = 0; i < rejects.length; i++) {
-    rejects[i].addEventListener("click", function(e) {
+for (let reject of rejects) {
+    reject.addEventListener("click", function(e) {
         e.preventDefault();
         var id = e.target.dataset.user;
         var xhr = new XMLHttpRequest();
