@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block body %} 
 <script>
+var csrf_token = "{{ csrf_token() }}";
 window.api_key = "{{ user.apiKey }}";
 window.root = "{{ root }}";
 </script>

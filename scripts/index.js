@@ -44,6 +44,7 @@ document.getElementById("reset-key").addEventListener("click", function(e) {
     };
     var form = new FormData();
     form.append("key", window.api_key);
+    xhr.setRequestHeader("X-CSRFToken", csrf_token);
     xhr.send(form);
 });
 
@@ -110,6 +111,7 @@ function uploadFile(file, progress) {
     var form = new FormData();
     form.append("key", window.api_key);
     form.append("file", file);
+    xhr.setRequestHeader("X-CSRFToken", csrf_token);
     xhr.send(form);
 }
 

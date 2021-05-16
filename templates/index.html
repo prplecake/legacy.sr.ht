@@ -15,6 +15,7 @@ decision is made.</p>
 </div>
 {% endif %}
 <form action="/register" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
     <div class="form-group">
         <label for="username">Username</label>
         <input id="username" name="username" class="form-control"

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, g, Response, redirect, url_for
 from flask_login import LoginManager, current_user
+from flask_wtf.csrf import CSRFProtect
 from jinja2 import FileSystemLoader, ChoiceLoader
 
 import random
@@ -18,6 +19,8 @@ from srht.blueprints.api import api
 from srht.blueprints.oauth import oauth
 
 app = Flask(__name__)
+csrf = CSRFProtect()
+csrf.init_app(app)
 app.secret_key = _cfg("secret-key")
 app.jinja_env.cache = None
 init_db()
