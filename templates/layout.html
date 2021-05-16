@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
     <head>
         {% block title %}
         <title>{{ domain }}</title>
@@ -12,7 +12,7 @@
         <div class="container">
             {% block body %}{% endblock %}
         </div>
-        <img class="moe" src="/static/moe/{{moe}}" />
+        <img class="moe" alt="moe" src="/static/moe/{{moe}}" />
         {% block modal %}{% endblock %}
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
