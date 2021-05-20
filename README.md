@@ -1,3 +1,10 @@
+[![CodeQL](https://github.com/prplecake/legacy.sr.ht/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/prplecake/legacy.sr.ht/actions/workflows/codeql-analysis.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=prplecake_legacy.sr.ht&metric=alert_status)](https://sonarcloud.io/dashboard?id=prplecake_legacy.sr.ht)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=prplecake_legacy.sr.ht&metric=bugs)](https://sonarcloud.io/dashboard?id=prplecake_legacy.sr.ht)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=prplecake_legacy.sr.ht&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=prplecake_legacy.sr.ht)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=prplecake_legacy.sr.ht&metric=code_smells)](https://sonarcloud.io/dashboard?id=prplecake_legacy.sr.ht)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=prplecake_legacy.sr.ht&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=prplecake_legacy.sr.ht)
+
 # legacy.sr.ht
 
 Private file hosting for you and your friends.
