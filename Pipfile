@@ -29,6 +29,7 @@ Mako = "*"
 MarkupSafe = "*"
 SQLAlchemy = "*"
 Werkzeug = "*"
+flask-wtf = "*"
 
 [dev-packages]
 
