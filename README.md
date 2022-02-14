@@ -15,12 +15,12 @@ Quick overview:
 1. Install dependencies
 2. Set up dependencies
 3. Clone the repository
-7. Configure the site
-8. Compile static assets
-9. Set up SQL
-10. Deployment
+4. Configure the site
+5. Compile static assets
+6. Set up SQL
+7. Deployment
 
-**Install the dependencies**
+## Install the dependencies
 
 You'll need these things:
 
@@ -35,54 +35,68 @@ You'll need these things:
 
 Use the packages your OS provides, or build them from source.
 
-**Set up services**
+## Set up services
 
 I'll leave you to set up PostgreSQL however you please. Prepare a
 connection string that looks like this when you're done:
 
-    postgresql://username:password@hostname:port/database
+```text
+postgresql://username:password@hostname:port/database
+```
 
 The connection string I use on localhost is this:
 
-    postgresql://srht:REDACTED@localhost/legacy.sr.ht
+```text
+postgresql://srht:REDACTED@localhost/legacy.sr.ht
+```
 
 We need to be able to create/alter/insert/update/delete in the database
 you give it.
 
-**Clone the repository**
+## Clone the repository
 
 Find a place you want the code to live.
 
-    $ git clone https://github.com/prplecake/legacy.sr.ht
-    $ cd legacy.sr.ht
+```shell
+git clone https://github.com/prplecake/legacy.sr.ht
+cd legacy.sr.ht
+```
 
-**Configure the site**
+## Configure the site
 
-    $ cp alembic.ini.example alembic.ini
-    $ cp config.ini.example config.ini
+```shell
+cp alembic.ini.example alembic.ini
+cp config.ini.example config.ini
+```
 
 Edit config.ini and alembic.ini to your liking.
 
-**Compile static assets**
+## Compile static assets
 
-    $ make
+```shell
+make
+```
 
 Run this again whenever you pull the code.
 
-**Deployment**
+## Deployment
 
 What you do from here depends on your site-specific configuration. If
 you just want to run the site for development, you can source the
 virtualenv and run
 
-    python app.py
+```shell
+python app.py
+```
 
 To run it in production, you probably want to use gunicorn behind an
 nginx proxy. There's a sample nginx config in the `contrib/` directory
 here, but you'll probably want to tweak it to suit your needs. Here's
 how you can run gunicorn, put this in your init scripts:
 
-    /path/to/legacy.sr.ht/bin/gunicorn app:app -b 127.0.0.1:8000
+```text
+/path/to/legacy.sr.ht/bin/gunicorn app:app -b 127.0.0.1:8000
+```
 
 The `-b` parameter specifies an endpoint to use. You probably want to
 bind this to localhost and proxy through from nginx. I'd also suggest
@@ -100,17 +114,19 @@ properly**.
 
 You can become an admin like so:
 
-    $ cd /path/to/sr.ht/
-    $ source bin/activate
-    $ python
-    >>> from srht.database import db
-    >>> from srht.objects import User
-    >>> from datetime import datetime, timezone
-    >>> u = User.query.filter(User.username == "your username").first()
-    >>> u.approved = True # approve yourself
-    >>> u.approvalDate = datetime.now(timezone.utc)
-    >>> u.admin = True # make yourself an admin
-    >>> db.commit()
+```text
+$ cd /path/to/sr.ht/
+$ source bin/activate
+$ python
+>>> from srht.database import db
+>>> from srht.objects import User
+>>> from datetime import datetime, timezone
+>>> u = User.query.filter(User.username == "your username").first()
+>>> u.approved = True # approve yourself
+>>> u.approvalDate = datetime.now(timezone.utc)
+>>> u.admin = True # make yourself an admin
+>>> db.commit()
+```
 
 ## SQL Stuff
 
@@ -118,14 +134,16 @@ We use alembic for schema migrations between versions. The first time
 you run the application, the schema will be created. However, you need
 to tell alembic about it. Run the application at least once, then:
 
-    $ cd /path/to/sr.ht/
-    $ source bin/activate
-    $ python
-    >>> from alembic.config import Config
-    >>> from alembic import command
-    >>> alembic_cfg = Config("alembic.ini")
-    >>> command.stamp(alembic_cfg, "head")
-    >>> exit()
+```text
+$ cd /path/to/sr.ht/
+$ source bin/activate
+$ python
+>>> from alembic.config import Config
+>>> from alembic import command
+>>> alembic_cfg = Config("alembic.ini")
+>>> command.stamp(alembic_cfg, "head")
+>>> exit()
+```
 
 Congrats, you've got a schema in place. Run `alembic upgrade head` after
 pulling the code to update your schema to the latest version. Do this
