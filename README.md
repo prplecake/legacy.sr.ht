@@ -53,7 +53,7 @@ you give it.
 
 Find a place you want the code to live.
 
-    $ git clone https://git.sr.ht/~mjorgensen/legacy.sr.ht
+    $ git clone https://github.com/prplecake/legacy.sr.ht
     $ cd legacy.sr.ht
 
 **Configure the site**
